@@ -13,7 +13,8 @@ const projects = [
     pattern: "grid" as const,
     illustration: "🤖",
     videoUrl: "/assets/VR Controlling the robot.mp4",
-    github: "#"
+    github: "#",
+    titleHref: "https://www.linkedin.com/posts/anil3423_robotics-unitreego2-metaquest3-ugcPost-7446400472435036160-LV9A?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAFJR49wBDxxAmNvjtggj7gmGvupP7EUgDiE"
   },
   {
     title: "UE5 Technical FPS",

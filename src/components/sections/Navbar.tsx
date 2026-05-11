@@ -15,21 +15,32 @@ const navLinks = [
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      // Navbar appears after scrolling past the Hero
       setIsScrolled(window.scrollY > window.innerHeight * 0.8);
     };
+    
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("resize", checkMobile);
+    
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", checkMobile);
+    };
   }, []);
 
   return (
     <nav 
       className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 h-[68px] flex items-center justify-between px-8 md:px-12 ${
         isScrolled 
-          ? "bg-washi/85 backdrop-blur-md border-b border-border shadow-sm translate-y-0 opacity-100" 
+          ? `bg-washi${isMobile ? "" : "/85 backdrop-blur-md"} border-b border-border shadow-sm translate-y-0 opacity-100` 
           : "-translate-y-full opacity-0"
       }`}
     >

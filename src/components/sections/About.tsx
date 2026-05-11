@@ -81,7 +81,7 @@ export default function About() {
               <StatCard kanji="年" num="4+" unit="Years" label="Learning Path" />
               <StatCard kanji="項" num="15+" unit="Projects" label="Developed" />
               <StatCard kanji="技" num="8" unit="Core" label="Technologies" />
-              <StatCard kanji="学" num="9.2" unit="GPA" label="Academic Excellence" />
+              <StatCard kanji="学" num="7.8" unit="GPA" label="Academic Excellence" />
             </div>
           </motion.div>
         </div>
