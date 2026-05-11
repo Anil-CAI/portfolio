@@ -15,6 +15,7 @@ interface ProjectProps {
   github?: string;
   demo?: string;
   videoUrl?: string;
+  titleHref?: string; // New prop for title redirection
 }
 
 export default function ProjectCard({ 
@@ -27,7 +28,8 @@ export default function ProjectCard({
   illustration, 
   github, 
   demo, 
-  videoUrl 
+  videoUrl,
+  titleHref
 }: ProjectProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -52,6 +54,9 @@ export default function ProjectCard({
       default: return "";
     }
   };
+
+  const TitleWrapper = titleHref ? "a" : "h3";
+  const titleProps = titleHref ? { href: titleHref, target: "_blank", rel: "noopener noreferrer" } : {};
 
   return (
     <motion.div
@@ -114,9 +119,14 @@ export default function ProjectCard({
         <div className="text-[0.7rem] tracking-[0.2em] uppercase font-bold text-mist/60 mb-2">
           {type.split('•')[0]} — {year}
         </div>
-        <h3 className="font-mincho text-[1.25rem] font-bold text-sumi mb-3 leading-tight group-hover:text-sakura-deep transition-colors">
+        
+        <TitleWrapper 
+          {...titleProps}
+          className={`font-mincho text-[1.25rem] font-bold text-sumi mb-3 leading-tight block no-underline transition-colors hover:text-sakura-deep ${titleHref ? 'hover:underline' : ''}`}
+        >
           {title}
-        </h3>
+        </TitleWrapper>
+
         <p className="text-mist text-[0.85rem] leading-relaxed mb-6 h-[4.5em] overflow-hidden line-clamp-3">
           {description}
         </p>
