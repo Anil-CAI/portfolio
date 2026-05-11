@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import SectionHeader from "../ui/SectionHeader";
-import { Mail, Link, Globe, Info, Send } from "lucide-react";
+import { Mail, Link, Globe, Info } from "lucide-react";
 import { useState } from "react";
 
 const socialLinks = [
@@ -129,7 +129,7 @@ export default function Contact() {
                 disabled={status !== "idle"}
                 className={`btn-primary w-full py-4 mt-2 font-bold tracking-[0.2em] flex items-center justify-center gap-3 transition-all ${status === "success" ? "bg-green-600 border-green-700" : ""}`}
               >
-                {status === "idle" && <><Send size={18} /> SEND MESSAGE</>}
+                {status === "idle" && <><Mail size={18} /> SEND MESSAGE</>}
                 {status === "sending" && "PREPARING MAIL..."}
                 {status === "success" && "OPENED IN GMAIL"}
               </button>
