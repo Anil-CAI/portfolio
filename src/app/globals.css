@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@theme {
+  --color-washi: #f9f5ef;
+  --color-washi-dark: #f0e9df;
+  --color-sakura: #f2c4ce;
+  --color-sakura-deep: #e8a0b0;
+  --color-sakura-pale: #faf0f2;
+  --color-matcha: #7a9e7e;
+  --color-matcha-pale: #d6e8d7;
+  --color-indigo: #3d4f6e;
+  --color-indigo-light: #6278a0;
+  --color-gold: #c9a84c;
+  --color-gold-pale: #f5e6c0;
+  --color-sumi: #1a1a2e;
+  --color-mist: #8a8fa8;
+  --color-border: rgba(180,160,140,0.3);
+  --color-border-strong: rgba(180,160,140,0.55);
+
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif-jp: var(--font-noto-serif-jp), serif;
+  --font-mincho: var(--font-shippori-mincho), serif;
+}
+
+@layer base {
+  :root {
+    --background: #f9f5ef;
+    --foreground: #1a1a2e;
+  }
+
+  body {
+    @apply bg-washi text-sumi font-sans;
+    overflow-x: hidden;
+    /* Custom cursor logic should be in a component, but we'll set the default here */
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-mincho font-medium tracking-tight;
+  }
+}
+
+@layer components {
+  .section-container {
+    @apply max-w-7xl mx-auto px-6 py-20;
+  }
+
+  .seigaiha-bg {
+    background-image: url("data:image/svg+xml,%3Csvg width='40' height='24' viewBox='0 0 40 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 24 Q10 0 20 24 Q30 0 40 24' fill='none' stroke='%23e8d8c8' stroke-width='0.7'/%3E%3Cpath d='M-20 24 Q-10 0 0 24' fill='none' stroke='%23e8d8c8' stroke-width='0.7'/%3E%3Cpath d='M40 24 Q50 0 60 24' fill='none' stroke='%23e8d8c8' stroke-width='0.7'/%3E%3Cpath d='M0 0 Q10 24 20 0 Q30 24 40 0' fill='none' stroke='%23e8d8c8' stroke-width='0.7'/%3E%3C/svg%3E");
+  }
+
+  .btn-primary {
+    @apply px-7 py-3 bg-sumi text-washi rounded-sm text-sm tracking-widest uppercase transition-all hover:bg-indigo hover:-translate-y-0.5;
+  }
+
+  .btn-ghost {
+    @apply px-6 py-3 bg-transparent text-sumi border border-border-strong rounded-sm text-sm tracking-widest uppercase transition-all hover:bg-washi-dark;
+  }
+
+  .badge {
+    @apply px-3.5 py-1.5 border border-border-strong rounded-sm text-[0.75rem] tracking-widest text-indigo transition-all hover:bg-sakura-pale hover:border-sakura-deep hover:text-sumi;
+  }
+
+  .badge-filled {
+    @apply bg-sakura-pale border-sakura-deep text-sumi;
+  }
+}
+
+/* Custom Cursor Styles */
+.cursor-dot {
+  @apply fixed top-0 left-0 w-3 h-3 bg-sakura-deep rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 mix-blend-multiply transition-transform duration-100;
+}
+
+.cursor-ring {
+  @apply fixed top-0 left-0 w-9 h-9 border border-sakura-deep rounded-full pointer-events-none z-[9998] -translate-x-1/2 -translate-y-1/2 transition-transform duration-200;
+}
