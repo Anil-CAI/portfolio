@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import SectionHeader from "../ui/SectionHeader";
-import { Mail, Link, Globe, Info } from "lucide-react";
+import { Mail, Link, Globe, Info, Send } from "lucide-react";
 import { useState } from "react";
 
 const socialLinks = [
@@ -18,14 +18,24 @@ export default function Contact() {
     email: "",
     message: ""
   });
+  const [status, setStatus] = useState<"idle" | "sending" | "success">("idle");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setStatus("sending");
+    
     const { name, email, message } = formData;
-    const subject = `Portfolio Message from ${name}`;
-    const body = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
-    const mailtoUrl = `mailto:ballaanilkumar369@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailtoUrl;
+    const subject = encodeURIComponent(`Portfolio Inquiry from ${name}`);
+    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+    
+    // Using Gmail web compose as a primary fallback to avoid desktop app (Thunderbird) popups
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=ballaanilkumar369@gmail.com&su=${subject}&body=${body}`;
+    
+    // Open in a new tab
+    window.open(gmailUrl, '_blank');
+    
+    setStatus("success");
+    setTimeout(() => setStatus("idle"), 3000);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -114,9 +124,18 @@ export default function Contact() {
                   className="w-full p-3 bg-washi border border-border-strong rounded-sm focus:border-sakura-deep outline-none text-[0.9rem] transition-colors resize-none"
                 ></textarea>
               </div>
-              <button type="submit" className="btn-primary w-full py-4 mt-2 font-bold tracking-[0.2em]">
-                SEND MESSAGE
+              <button 
+                type="submit" 
+                disabled={status !== "idle"}
+                className={`btn-primary w-full py-4 mt-2 font-bold tracking-[0.2em] flex items-center justify-center gap-3 transition-all ${status === "success" ? "bg-green-600 border-green-700" : ""}`}
+              >
+                {status === "idle" && <><Send size={18} /> SEND MESSAGE</>}
+                {status === "sending" && "PREPARING MAIL..."}
+                {status === "success" && "OPENED IN GMAIL"}
               </button>
+              <p className="text-[0.65rem] text-mist text-center mt-4">
+                This will open a new tab with your message ready in Gmail.
+              </p>
             </form>
           </div>
         </div>
