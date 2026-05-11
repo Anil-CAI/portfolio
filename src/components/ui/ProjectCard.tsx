@@ -55,9 +55,6 @@ export default function ProjectCard({
     }
   };
 
-  const TitleWrapper = titleHref ? "a" : "h3";
-  const titleProps = titleHref ? { href: titleHref, target: "_blank", rel: "noopener noreferrer" } : {};
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -120,12 +117,20 @@ export default function ProjectCard({
           {type.split('•')[0]} — {year}
         </div>
         
-        <TitleWrapper 
-          {...titleProps}
-          className={`font-mincho text-[1.25rem] font-bold text-sumi mb-3 leading-tight block no-underline transition-colors hover:text-sakura-deep ${titleHref ? 'hover:underline' : ''}`}
-        >
-          {title}
-        </TitleWrapper>
+        {titleHref ? (
+          <a 
+            href={titleHref} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="font-mincho text-[1.25rem] font-bold text-sumi mb-3 leading-tight block no-underline transition-colors hover:text-sakura-deep hover:underline cursor-pointer relative z-10"
+          >
+            {title}
+          </a>
+        ) : (
+          <h3 className="font-mincho text-[1.25rem] font-bold text-sumi mb-3 leading-tight block">
+            {title}
+          </h3>
+        )}
 
         <p className="text-mist text-[0.85rem] leading-relaxed mb-6 h-[4.5em] overflow-hidden line-clamp-3">
           {description}
