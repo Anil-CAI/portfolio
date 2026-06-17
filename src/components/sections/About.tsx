@@ -3,135 +3,120 @@
 import { motion } from "framer-motion";
 import SectionHeader from "../ui/SectionHeader";
 import Image from "next/image";
-import SectionBackground from "../ui/SectionBackground";
 
 export default function About() {
   return (
-    <SectionBackground backgroundImage="/assets/backgrounds/bg.jpg" overlayOpacity={0.7} blur={true} priority={true}>
-      <section id="about" className="py-24 md:py-32 relative overflow-hidden">
-        <div className="section-container">
-          <SectionHeader 
-            label="01 / Profile" 
-            title="The Mind Behind the Machine" 
-            kanji="心" 
-          />
-          
-        <div className="grid md:grid-cols-[1fr_1.2fr] gap-12 md:gap-20 items-start relative z-10">
-          {/* Left: Identity & Visual */}
+    <section id="about" className="textbook-page relative overflow-hidden bg-washi">
+      {/* Chapter tab header */}
+      <div className="bg-washi-dark border-b-2 border-kitsune/30 px-6 md:px-8 py-2 flex items-center gap-3">
+        <div className="chapter-stamp text-sm w-[32px] h-[32px]">1</div>
+        <span className="text-[0.7rem] tracking-[0.3em] text-akane uppercase font-bold" style={{ fontFamily: "var(--font-noto-serif-jp)" }}>
+          第一章 · About Me — 自己紹介
+        </span>
+        <span className="flex-1" />
+        <span className="text-[0.65rem] text-mist tracking-wider hidden md:inline" style={{ fontFamily: "var(--font-jetbrains)" }}>pg. 1</span>
+      </div>
+
+      {/* Page content with ruled lines */}
+      <div className="ruled-lines margin-line-left book-spine-shadow px-6 md:px-10 lg:px-14 py-8 md:py-12">
+        <SectionHeader label="第一章 · Chapter 1" title="About Me — 自己紹介" kanji="心" />
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start max-w-6xl mx-auto">
+          {/* Left: Profile Image & Info */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="space-y-8"
+            transition={{ duration: 0.6 }}
+            className="space-y-6 flex flex-col items-center lg:items-start w-full"
           >
-            {/* Profile Frame with Glass Blur Effect */}
-            <div className="relative w-[280px] h-[360px] mx-auto md:mx-0">
-              {/* Zen Circle (Enso) Decoration */}
-              <div className="absolute -inset-10 border-[1px] border-sakura-deep/20 rounded-full pointer-events-none -z-10 animate-[spin_20s_linear_infinite] hidden md:block"></div>
-              
-              <div className="relative w-full h-full border border-border-strong rounded-sm bg-washi overflow-hidden shadow-soft group z-10">
-                <div className="w-full h-full relative">
-                  {/* Main Image */}
-                  <Image 
-                    src="/assets/anil.jpg" 
-                    alt="Anil Kumar" 
-                    fill 
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                    sizes="(max-width: 768px) 100vw, 280px"
-                  />
-                  
-                  {/* Glass Overlay (Blur Effect) */}
-                  <div className="absolute inset-0 bg-white/5 backdrop-blur-[1px] transition-all duration-700 group-hover:backdrop-blur-0 group-hover:bg-transparent"></div>
-                  
-                  {/* Subtle Gradient for depth */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-sumi/40 via-transparent to-transparent opacity-60"></div>
+            {/* Photo taped in */}
+            <div className="relative w-full max-w-[340px]">
+              <div className="absolute -top-3 left-10 w-[60px] h-[16px] bg-kitsune-light/80 -rotate-3 z-20 rounded-sm shadow-sm" />
+              <div className="absolute -top-2 right-12 w-[50px] h-[16px] bg-kitsune-light/80 rotate-2 z-20 rounded-sm shadow-sm" />
+              <div className="relative bg-washi-light p-3 shadow-md rotate-[1deg] hover:rotate-0 transition-transform duration-500 border border-kitsune-pale">
+                <div className="relative w-full h-[380px] overflow-hidden bg-washi-dark">
+                  <Image src="/assets/anil.jpg" alt="Anil Kumar" fill className="object-cover blur-[1.5px] contrast-95 saturate-90" sizes="(max-width: 768px) 100vw, 340px" />
+                </div>
+                <div className="mt-2 text-center text-sumi-faded text-[0.85rem]" style={{ fontFamily: "var(--font-caveat)" }}>
+                  Anil Kumar, 2026
                 </div>
               </div>
             </div>
 
-            <div className="space-y-4">
-              <h3 className="font-mincho text-3xl text-sumi leading-tight">
-                Anil Kumar
-              </h3>
-              <div className="font-serif-jp text-lg font-light text-mist tracking-[0.5em]">
-                技術者
+            {/* Info cards */}
+            <div className="grid grid-cols-2 gap-3 w-full max-w-[340px]">
+              <div className="bg-washi-light border border-kitsune-pale rounded-sm p-3.5 shadow-sm">
+                <div className="text-[0.65rem] text-akane tracking-widest uppercase font-bold mb-1">名前 · Name</div>
+                <div className="text-[0.85rem] text-sumi-light font-medium">B. Anil Kumar</div>
               </div>
-              <p className="text-sumi/80 text-[0.95rem] leading-[1.8] font-light italic border-l-2 border-sakura-deep pl-4">
-                "Building intelligent systems combining AI, robotics, simulation, and real-time graphics."
-              </p>
+              <div className="bg-washi-light border border-kitsune-pale rounded-sm p-3.5 shadow-sm">
+                <div className="text-[0.65rem] text-akane tracking-widest uppercase font-bold mb-1">役割 · Role</div>
+                <div className="text-[0.85rem] text-sumi-light font-medium">Technical Engineer</div>
+              </div>
             </div>
           </motion.div>
 
-          {/* Right: Detailed Bio & Stats */}
+          {/* Right: Bio + Stats */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="space-y-12"
+            transition={{ duration: 0.6 }}
+            className="space-y-8"
           >
-            <div className="space-y-6 text-sumi/80 text-[1rem] leading-[1.9] font-light">
+            <div className="space-y-4 text-sumi-faded text-[0.95rem] leading-[1.8]">
               <p>
-                I am an engineering student with a deep passion for <span className="text-sumi font-medium">robotics and simulation</span>. 
+                I am an engineering student with a deep passion for <span className="text-sumi font-semibold">robotics and simulation</span>.
                 My journey began with a curiosity about how things work, which evolved into a focused pursuit of building intelligent interactive systems.
               </p>
-              
               <p>
-                I specialize in <span className="text-sumi font-medium">Unreal Engine 5</span> for real-time visualization and <span className="text-sumi font-medium">ROS2</span> for robotic navigation. 
-                Whether it's developing C++ gameplay systems or training machine learning models, I strive for clean architecture and performant code.
+                I specialize in <span className="text-sumi font-semibold">Unreal Engine 5</span> for real-time visualization and <span className="text-sumi font-semibold">ROS2</span> for robotic navigation.
+                Whether it&apos;s developing C++ gameplay systems or training machine learning models, I strive for clean architecture and performant code.
               </p>
-
               <p>
-                Currently, I am exploring the intersection of <span className="text-sakura-deep font-medium">human-robot interaction</span> and aesthetic technology, believing that the future of robotics lies not just in function, but in the beauty of seamless integration.
+                Currently, I am exploring the intersection of <span className="px-1.5 py-0.5 bg-highlight-pink/60 rounded-sm">human-robot interaction</span> and aesthetic technology, believing that the future of robotics lies not just in function, but in the beauty of seamless integration.
               </p>
             </div>
+            
+            <p className="text-sumi-light text-[0.95rem] leading-[1.7] italic border-l-[3px] border-akane pl-5 py-1 bg-gradient-to-r from-akane/5 to-transparent">
+              &ldquo;Building intelligent systems combining AI, robotics, simulation, and real-time graphics.&rdquo;
+            </p>
 
-            {/* Stats Cards (from old About) */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <StatCard kanji="年" num="4+" unit="Years" label="Learning Path" />
-              <StatCard kanji="項" num="15+" unit="Projects" label="Developed" />
-              <StatCard kanji="技" num="8" unit="Core" label="Technologies" />
-              <StatCard kanji="学" num="7.8" unit="GPA" label="Academic Excellence" />
+            {/* Sticky note */}
+            <div className="sticky-note max-w-[360px] shadow-md">
+              <div className="font-bold text-[0.9rem] mb-1 opacity-80 uppercase tracking-wider" style={{ fontFamily: "var(--font-jetbrains)" }}>Note:</div>
+              Key focus areas: VR Teleoperation, Autonomous Systems, and Real-time 3D Graphics ✨
             </div>
+
+            {/* Stats table */}
+            <table className="textbook-table shadow-sm">
+              <thead>
+                <tr>
+                  <th>指標 · Metric</th>
+                  <th>Value</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td className="font-semibold">Experience</td><td className="text-akane font-bold text-lg">4+</td><td className="text-sumi-faded text-sm">Years Learning Path</td></tr>
+                <tr><td className="font-semibold">Projects</td><td className="text-akane font-bold text-lg">15+</td><td className="text-sumi-faded text-sm">Developed & Shipped</td></tr>
+                <tr><td className="font-semibold">Technologies</td><td className="text-akane font-bold text-lg">8</td><td className="text-sumi-faded text-sm">Core Competencies</td></tr>
+                <tr><td className="font-semibold">GPA</td><td className="text-akane font-bold text-lg">7.8</td><td className="text-sumi-faded text-sm">Academic Excellence</td></tr>
+              </tbody>
+            </table>
           </motion.div>
         </div>
       </div>
 
-      {/* Background Decorative Symbols */}
-      <div className="absolute right-[10%] top-[20%] font-serif-jp text-[8rem] text-sakura opacity-[0.08] pointer-events-none select-none hidden lg:block">
-        夢
-      </div>
-      <div className="absolute left-[30%] bottom-[15%] font-serif-jp text-[6rem] text-matcha opacity-[0.08] pointer-events-none select-none hidden lg:block">
-        力
-      </div>
-      <div className="absolute right-[40%] top-[40%] font-serif-jp text-[12rem] text-indigo opacity-[0.03] pointer-events-none select-none hidden lg:block">
-        志
+      {/* Page footer */}
+      <div className="bg-washi-dark border-t-2 border-kitsune/40 px-6 md:px-8 py-2 flex justify-between items-center">
+        <span className="text-[0.65rem] text-mist tracking-wider" style={{ fontFamily: "var(--font-noto-serif-jp)" }}>ページ 2 / 5</span>
+        <span className="text-[0.65rem] text-mist tracking-widest opacity-50">KIET · JNTUK · 2027</span>
       </div>
 
-      {/* Decorative vertical text */}
-      <div className="absolute left-4 top-1/2 -translate-y-1/2 -rotate-90 origin-center font-serif-jp text-[0.6rem] tracking-[0.4em] text-border-strong whitespace-nowrap hidden lg:block opacity-40">
-        TECHNICAL CREATIVE ENGINEER • ROBOTICS • AI
-      </div>
-      </section>
-    </SectionBackground>
-  );
-}
-
-function StatCard({ kanji, num, unit, label }: { kanji: string; num: string; unit: string; label: string }) {
-  return (
-    <motion.div
-      whileHover={{ y: -4, boxShadow: "0 4px 24px rgba(100,80,60,0.08)" }}
-      className="bg-washi-dark border border-border rounded-sm p-6 relative overflow-hidden transition-all duration-300"
-    >
-      <div className="absolute -top-2.5 -right-2.5 font-serif-jp text-[4rem] text-sakura opacity-20 pointer-events-none select-none">
-        {kanji}
-      </div>
-      <div className="font-mincho text-[2rem] font-bold text-sumi">
-        {num}
-        <span className="text-xs font-sans text-mist font-normal ml-1 uppercase tracking-widest">{unit}</span>
-      </div>
-      <div className="text-[0.78rem] text-mist mt-1 uppercase tracking-wider">{label}</div>
-    </motion.div>
+      {/* Decorative kanji watermarks */}
+      <div className="absolute right-8 top-[30%] text-[8rem] text-sakura opacity-[0.05] pointer-events-none select-none hidden lg:block" style={{ fontFamily: "var(--font-noto-serif-jp)" }}>夢</div>
+    </section>
   );
 }

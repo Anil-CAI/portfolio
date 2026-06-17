@@ -4,13 +4,12 @@ import { motion } from "framer-motion";
 import SectionHeader from "../ui/SectionHeader";
 import { Mail, Link, Globe, Info } from "lucide-react";
 import { useState } from "react";
-import SectionBackground from "../ui/SectionBackground";
 
 const socialLinks = [
-  { icon: <Mail size={18} />, label: "Email", val: "ballaanilkumar369@gmail.com", href: "mailto:ballaanilkumar369@gmail.com" },
-  { icon: <Link size={18} />, label: "LinkedIn", val: "linkedin.com/in/anil3423", href: "https://www.linkedin.com/in/anil3423/" },
-  { icon: <Globe size={18} />, label: "GitHub", val: "github.com/Anil-CAI", href: "https://github.com/Anil-CAI" },
-  { icon: <Info size={18} />, label: "YouTube", val: "@Anil_xr_robotics", href: "https://www.youtube.com/@Anil_xr_robotics" }
+  { icon: <Mail size={16} />, label: "EMAIL", val: "ballaanilkumar369@gmail.com", href: "mailto:ballaanilkumar369@gmail.com" },
+  { icon: <Link size={16} />, label: "LINKEDIN", val: "linkedin.com/in/anil3423", href: "https://www.linkedin.com/in/anil3423/" },
+  { icon: <Globe size={16} />, label: "GITHUB", val: "github.com/Anil-CAI", href: "https://github.com/Anil-CAI" },
+  { icon: <Info size={16} />, label: "YOUTUBE", val: "@Anil_xr_robotics", href: "https://www.youtube.com/@Anil_xr_robotics" }
 ];
 
 export default function Contact() {
@@ -24,17 +23,14 @@ export default function Contact() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("sending");
-    
+
     const { name, email, message } = formData;
     const subject = encodeURIComponent(`Portfolio Inquiry from ${name}`);
     const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
-    
-    // Using Gmail web compose as a primary fallback to avoid desktop app (Thunderbird) popups
+
     const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=ballaanilkumar369@gmail.com&su=${subject}&body=${body}`;
-    
-    // Open in a new tab
     window.open(gmailUrl, '_blank');
-    
+
     setStatus("success");
     setTimeout(() => setStatus("idle"), 3000);
   };
@@ -47,111 +43,140 @@ export default function Contact() {
   };
 
   return (
-    <SectionBackground backgroundImage="/assets/backgrounds/bg1.jpg" overlayOpacity={0.6}>
-      <section id="contact" className="pt-24 pb-12 md:pt-32 md:pb-16">
-        <div className="section-container">
-          <SectionHeader 
-            label="05 / Contact" 
-            title="Let's Build the Future" 
-            kanji="信" 
-          />
+    <section id="contact" className="textbook-page relative overflow-hidden bg-washi">
+      {/* Chapter tab */}
+      <div className="bg-washi-dark border-b-2 border-kitsune/30 px-6 md:px-8 py-2 flex items-center gap-3">
+        <div className="chapter-stamp text-sm w-[32px] h-[32px]">5</div>
+        <span className="text-[0.7rem] tracking-[0.3em] text-akane uppercase font-bold" style={{ fontFamily: "var(--font-noto-serif-jp)" }}>
+          第五章 · Contact — 連絡先
+        </span>
+        <span className="flex-1" />
+        <span className="text-[0.65rem] text-mist tracking-wider hidden md:inline" style={{ fontFamily: "var(--font-jetbrains)" }}>pg. 5</span>
+      </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-            {/* Left: Text & Links */}
-            <div className="order-2 lg:order-1">
-              <p className="text-indigo-light text-[0.95rem] leading-[1.9] font-light mb-10">
-                Interested in collaboration or have a technical project in mind? 
-                I am always open to discussing new opportunities in robotics, XR, and real-time simulation. 
-                Let's connect and push the boundaries of what's possible.
-              </p>
-              
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
-                {socialLinks.map((link, idx) => (
-                  <motion.a
-                    key={idx}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ x: 4, backgroundColor: "var(--color-sakura-pale)", borderColor: "var(--color-sakura-deep)" }}
-                    className="flex items-center gap-4 p-4 bg-washi-dark border border-border rounded-sm no-underline group transition-all duration-300"
-                  >
-                    <div className="w-10 h-10 rounded-full bg-washi border border-border-strong flex items-center justify-center text-sumi group-hover:border-sakura-deep transition-colors shrink-0">
-                      {link.icon}
-                    </div>
-                    <div className="min-w-0">
-                      <div className="text-[0.65rem] uppercase tracking-widest text-mist">{link.label}</div>
-                      <div className="text-sumi text-[0.85rem] font-medium truncate">{link.val}</div>
-                    </div>
-                  </motion.a>
-                ))}
-              </div>
+      <div className="ruled-lines margin-line-left book-spine-shadow px-6 md:px-10 lg:px-14 py-8 md:py-10">
+        <SectionHeader label="第五章 · Chapter 5" title="Contact — 連絡先" kanji="話" />
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-start max-w-5xl">
+          {/* Left: Text & Reference Links */}
+          <div className="order-2 lg:order-1">
+            <p className="text-sumi-faded text-[0.9rem] leading-[1.8] mb-8">
+              Interested in collaboration or have a technical project in mind?
+              I am always open to discussing new opportunities in robotics, XR, and real-time simulation.
+              Let&apos;s connect and push the boundaries of what&apos;s possible.
+            </p>
+
+            {/* Links Row (like reference HTML links-row) */}
+            <div className="text-[0.6rem] tracking-[0.3em] text-akane uppercase font-bold mb-3">
+              References & Links
             </div>
 
-            {/* Right: Contact Form */}
-            <div className="bg-washi-dark border border-border rounded-sm p-6 md:p-8 shadow-sm order-1 lg:order-2">
-              <form className="space-y-5" onSubmit={handleSubmit}>
-                <div className="space-y-1.5">
-                  <label className="text-[0.75rem] uppercase tracking-widest text-mist font-bold">Full Name</label>
-                  <input 
-                    type="text" 
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    placeholder="Enter your name"
-                    className="w-full p-3 bg-washi border border-border-strong rounded-sm focus:border-sakura-deep outline-none text-[0.9rem] transition-colors"
-                  />
-                </div>
-                <div className="space-y-1.5">
-                  <label className="text-[0.75rem] uppercase tracking-widest text-mist font-bold">Email Address</label>
-                  <input 
-                    type="email" 
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    placeholder="email@example.com"
-                    className="w-full p-3 bg-washi border border-border-strong rounded-sm focus:border-sakura-deep outline-none text-[0.9rem] transition-colors"
-                  />
-                </div>
-                <div className="space-y-1.5">
-                  <label className="text-[0.75rem] uppercase tracking-widest text-mist font-bold">Message</label>
-                  <textarea 
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows={4}
-                    placeholder="How can we work together?"
-                    className="w-full p-3 bg-washi border border-border-strong rounded-sm focus:border-sakura-deep outline-none text-[0.9rem] transition-colors resize-none"
-                  ></textarea>
-                </div>
-                <button 
-                  type="submit" 
-                  disabled={status !== "idle"}
-                  className={`btn-primary w-full py-4 mt-2 font-bold tracking-[0.2em] flex items-center justify-center gap-3 transition-all ${status === "success" ? "bg-green-600 border-green-700" : ""}`}
+            <div className="flex flex-col gap-3">
+              {socialLinks.map((link, idx) => (
+                <motion.a
+                  key={idx}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ x: 4 }}
+                  className="bg-washi-light border border-kitsune-pale p-3 flex items-center gap-4 no-underline group hover:border-akane/50 hover:bg-washi transition-all"
                 >
-                  {status === "idle" && <><Mail size={18} /> SEND MESSAGE</>}
-                  {status === "sending" && "PREPARING MAIL..."}
-                  {status === "success" && "OPENED IN GMAIL"}
-                </button>
-                <p className="text-[0.65rem] text-mist text-center mt-4">
-                  This will open a new tab with your message ready in Gmail.
-                </p>
-              </form>
+                  <div className="w-8 h-8 rounded bg-akane text-washi flex items-center justify-center shrink-0">
+                    {link.icon}
+                  </div>
+                  <div>
+                    <div className="text-[0.6rem] text-mist tracking-widest font-mono mb-0.5" style={{ fontFamily: "var(--font-jetbrains)" }}>
+                      [{idx + 1}] {link.label}
+                    </div>
+                    <div className="text-sumi-light text-[0.8rem] font-medium">{link.val}</div>
+                  </div>
+                </motion.a>
+              ))}
             </div>
           </div>
 
-          {/* Footer */}
-          <div className="mt-20 md:mt-32 pt-12 border-t border-border flex flex-col md:flex-row justify-between items-center gap-6 text-mist text-[0.65rem] md:text-[0.75rem] uppercase tracking-widest text-center md:text-left">
-            <div>© 2026 Anil Kumar. All rights reserved.</div>
-            <div className="flex flex-wrap justify-center gap-4 md:gap-8">
-              <a href="#" className="hover:text-sumi transition-colors no-underline">Built with Next.js</a>
-              <a href="#" className="hover:text-sumi transition-colors no-underline">Japanese Aesthetic</a>
+          {/* Right: Contact Form */}
+          <div className="bg-washi-light border border-kitsune-pale p-6 relative order-1 lg:order-2 shadow-sm">
+            {/* Paper clip */}
+            <div className="absolute -top-3 right-5 text-xl" style={{ transform: "rotate(20deg)" }}>📎</div>
+
+            <div className="text-[0.6rem] tracking-[0.3em] text-akane uppercase font-bold mb-4 border-b border-kitsune-pale pb-2">
+              Inquiry Form
+            </div>
+
+            <form className="space-y-4" onSubmit={handleSubmit}>
+              <div className="space-y-1">
+                <label className="text-[0.65rem] uppercase tracking-widest text-mist font-bold">Full Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  placeholder="Enter your name"
+                  className="w-full p-2.5 bg-washi border border-kitsune-pale focus:border-akane outline-none text-[0.85rem] transition-colors"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-[0.65rem] uppercase tracking-widest text-mist font-bold">Email Address</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  placeholder="email@example.com"
+                  className="w-full p-2.5 bg-washi border border-kitsune-pale focus:border-akane outline-none text-[0.85rem] transition-colors"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-[0.65rem] uppercase tracking-widest text-mist font-bold">Message</label>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  rows={4}
+                  placeholder="How can we work together?"
+                  className="w-full p-2.5 bg-washi border border-kitsune-pale focus:border-akane outline-none text-[0.85rem] transition-colors resize-none"
+                />
+              </div>
+              <button
+                type="submit"
+                disabled={status !== "idle"}
+                className={`w-full py-3 mt-2 text-[0.75rem] font-bold tracking-[0.2em] flex items-center justify-center gap-2 transition-all border-2 
+                  ${status === "success" 
+                    ? "bg-matcha border-matcha text-washi" 
+                    : "bg-akane border-akane text-washi hover:bg-akane-deep hover:border-akane-deep"}`}
+              >
+                {status === "idle" && <><Mail size={14} /> SEND MESSAGE</>}
+                {status === "sending" && "PREPARING MAIL..."}
+                {status === "success" && "✓ OPENED IN GMAIL"}
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      {/* Global Book Footer */}
+      <div className="bg-washi-dark border-t-[3px] border-kitsune px-6 md:px-10 py-5 flex flex-col md:flex-row justify-between items-center gap-4 text-center">
+        <div className="flex items-center gap-4">
+          <div className="hanko-seal w-[40px] h-[40px] text-[8px]">ア<br />ニル</div>
+          <div className="text-left">
+            <div className="text-sumi-light font-bold tracking-widest text-[0.75rem]" style={{ fontFamily: "var(--font-noto-serif-jp)" }}>
+              B. Anil Kumar
+            </div>
+            <div className="text-mist text-[0.6rem] tracking-[0.2em] mt-0.5 uppercase">
+              Portfolio 2026
             </div>
           </div>
         </div>
-      </section>
-    </SectionBackground>
+
+        <div className="flex gap-4 text-[0.6rem] text-mist tracking-widest font-medium uppercase">
+          <span className="flex items-center gap-1.5"><span className="w-1 h-1 rounded-full bg-akane"></span> Built with Next.js</span>
+          <span className="flex items-center gap-1.5"><span className="w-1 h-1 rounded-full bg-akane"></span> Japanese Textbook</span>
+        </div>
+      </div>
+    </section>
   );
 }

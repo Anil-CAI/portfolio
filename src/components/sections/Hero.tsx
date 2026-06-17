@@ -1,171 +1,174 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import FallingParticles from "../ui/FallingParticles";
 
 export default function Hero() {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const [isMobile, setIsMobile] = useState(false);
-
-  // Smooth mouse movement for eyes
-  const springConfig = { stiffness: 150, damping: 20 };
-  const smoothMouseX = useSpring(mouseX, springConfig);
-  const smoothMouseY = useSpring(mouseY, springConfig);
-
-  const eyeX = useTransform(smoothMouseX, [0, 1920], [-10, 10]);
-  const eyeY = useTransform(smoothMouseY, [0, 1080], [-8, 8]);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseX.set(e.clientX);
-      mouseY.set(e.clientY);
-    };
-    
-    if (!isMobile) {
-      window.addEventListener("mousemove", handleMouseMove);
-    }
-    
-    return () => {
-      window.removeEventListener("resize", checkMobile);
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, [mouseX, mouseY, isMobile]);
+    setMounted(true);
+  }, []);
 
   return (
-    <section className="relative min-h-screen bg-[#ff4d8d] flex items-center justify-center overflow-hidden cursor-default">
-      {/* Dynamic Background Shapes - Simplified for mobile */}
-      <motion.div 
-        animate={isMobile ? {} : { 
-          scale: [1, 1.2, 1],
-          rotate: [0, 20, 0],
-          x: [-20, 20, -20]
-        }}
-        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-[-10%] left-[-5%] w-[60vw] md:w-[40vw] h-[60vw] md:h-[40vw] bg-[#4ade80] rounded-[45%_55%_65%_35%_/_45%_45%_55%_55%] opacity-90"
-      />
-      <motion.div 
-        animate={isMobile ? {} : { 
-          scale: [1, 1.3, 1],
-          rotate: [0, -30, 0],
-          y: [20, -20, 20]
-        }}
-        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        className="absolute top-[5%] right-[-10%] w-[50vw] md:w-[35vw] h-[50vw] md:h-[35vw] bg-[#a855f7] rounded-full opacity-70"
-      />
-      <motion.div 
-        animate={isMobile ? {} : { 
-          scale: [1, 1.1, 1],
-          rotate: [0, 15, 0],
-          x: [30, -30, 30]
-        }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        className="absolute bottom-[-15%] right-[5%] w-[70vw] md:w-[50vw] h-[70vw] md:h-[50vw] bg-[#eab308] rounded-[55%_45%_35%_65%_/_50%_60%_40%_50%] opacity-90"
-      />
-
-      {/* Main ANIL Characters Container */}
-      <div className="relative z-10 flex flex-wrap justify-center items-center gap-4 md:gap-10 px-4 w-full max-w-[1400px] py-20">
-        
-        {/* A - The Green Peak Monster */}
-        <motion.div
-          whileHover={{ scale: 1.1, rotate: -5 }}
-          className="relative w-[35vw] md:w-[20vw] max-w-[280px]"
-        >
-          <svg viewBox="0 0 200 240" className="w-full drop-shadow-2xl">
-            <motion.path 
-              animate={isMobile ? {} : { d: ["M100 20 L20 220 L180 220 Z", "M100 25 L30 215 L170 215 Z", "M100 20 L20 220 L180 220 Z"] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              d="M100 20 L20 220 L180 220 Z" fill="#2fd16b" 
-            />
-            <rect x="75" y="140" width="50" height="15" rx="5" fill="#ff4d8d" />
-            <circle cx="100" cy="80" r="22" fill="white" />
-            <motion.circle style={isMobile ? { x: 0, y: 0 } : { x: eyeX, y: eyeY }} cx="100" cy="80" r="10" fill="#1a1a2e" />
-            <circle cx="104" cy="76" r="4" fill="white" />
-            <path d="M90 115 L95 110 L100 115 L105 110 L110 115" stroke="white" strokeWidth="3" fill="none" />
-          </svg>
-        </motion.div>
-
-        {/* N - The Blue Bend Monster */}
-        <motion.div
-          whileHover={{ scale: 1.1, rotate: 5 }}
-          className="relative w-[35vw] md:w-[20vw] max-w-[280px] md:-mt-10"
-        >
-          <svg viewBox="0 0 200 240" className="w-full drop-shadow-2xl">
-            <motion.path 
-              animate={isMobile ? {} : { strokeWidth: [35, 40, 35] }}
-              transition={{ duration: 3, repeat: Infinity }}
-              d="M40 220 V40 L160 220 V40" stroke="#38bdf8" strokeWidth="38" fill="none" strokeLinecap="round" strokeLinejoin="round" 
-            />
-            <circle cx="65" cy="80" r="15" fill="white" />
-            <motion.circle style={isMobile ? { x: 0, y: 0 } : { x: eyeX, y: eyeY }} cx="65" cy="80" r="7" fill="#1a1a2e" />
-            <circle cx="135" cy="180" r="12" fill="white" />
-            <motion.circle style={isMobile ? { x: 0, y: 0 } : { x: eyeX, y: eyeY }} cx="135" cy="180" r="5" fill="#ff4d8d" />
-            <motion.path 
-              animate={isMobile ? {} : { 
-                d: ["M160 80 Q185 85 175 140", "M160 80 Q205 95 185 160", "M160 80 Q185 85 175 140"] 
-              }}
-              transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-              d="M160 80 Q185 85 175 140" stroke="#ff85b3" strokeWidth="15" strokeLinecap="round" fill="none" 
-            />
-          </svg>
-        </motion.div>
-
-        {/* I - The Yellow Tall Monster */}
-        <motion.div
-          whileHover={{ scale: 1.1, y: -20 }}
-          className="relative w-[25vw] md:w-[15vw] max-w-[200px] md:mt-10"
-        >
-          <svg viewBox="0 0 140 240" className="w-full drop-shadow-2xl">
-            <motion.rect 
-              animate={isMobile ? {} : { height: [180, 200, 180] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              x="35" y="20" width="70" height="190" rx="35" fill="#facc15" 
-            />
-            <circle cx="70" cy="70" r="25" fill="white" />
-            <motion.circle style={isMobile ? { x: 0, y: 0 } : { x: eyeX, y: eyeY }} cx="70" cy="70" r="12" fill="#38bdf8" />
-            <circle cx="75" cy="65" r="5" fill="white" />
-            <motion.path 
-              animate={isMobile ? {} : { d: ["M50 140 Q60 130 70 140 T90 140", "M50 145 Q60 155 70 145 T90 145", "M50 140 Q60 130 70 140 T90 140"] }}
-              transition={{ duration: 3, repeat: Infinity }}
-              d="M50 140 Q60 130 70 140 T90 140" stroke="#1a1a2e" strokeWidth="4" fill="none" strokeLinecap="round" 
-            />
-          </svg>
-        </motion.div>
-
-        {/* L - The Orange Corner Monster */}
-        <motion.div
-          whileHover={{ scale: 1.1, rotate: 10 }}
-          className="relative w-[35vw] md:w-[20vw] max-w-[280px]"
-        >
-          <svg viewBox="0 0 200 240" className="w-full drop-shadow-2xl">
-            <path d="M50 40 V200 H170" stroke="#f59e0b" strokeWidth="40" fill="none" strokeLinecap="round" />
-            <circle cx="50" cy="75" r="18" fill="white" />
-            <motion.circle style={isMobile ? { x: 0, y: 0 } : { x: eyeX, y: eyeY }} cx="50" cy="75" r="8" fill="#38bdf8" />
-            <circle cx="150" cy="200" r="8" fill="white" />
-            <circle cx="150" cy="200" r="4" fill="#1a1a2e" />
-            <path d="M80 200 L90 215 L100 200 L110 215 L120 200" stroke="white" strokeWidth="4" fill="none" />
-            <motion.path 
-              animate={isMobile ? {} : { rotate: [-20, 20, -20] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-              style={{ originX: "50px", originY: "120px" }}
-              d="M50 120 Q20 110 10 130" stroke="#f59e0b" strokeWidth="10" strokeLinecap="round" fill="none" 
-            />
-          </svg>
-        </motion.div>
+    <section className="textbook-page relative min-h-screen flex flex-col overflow-hidden bg-washi">
+      {/* Textbook header bar */}
+      <div className="w-full bg-akane flex items-center gap-4 px-6 md:px-8 py-3">
+        <div className="hanko-seal w-[36px] h-[36px] text-[8px]">ア<br />ニル</div>
+        <div>
+          <h1 className="text-lg md:text-xl font-bold text-kitsune-light tracking-wider" style={{ fontFamily: "var(--font-noto-serif-jp)" }}>
+            Anil Kumar
+          </h1>
+          <div className="text-[0.6rem] text-kitsune-light/80 tracking-wider mt-0.5 uppercase">
+            Technical Creative Engineer
+          </div>
+        </div>
       </div>
 
-      {/* Navigation Overlay */}
-      <div className="absolute top-10 left-0 right-0 flex flex-wrap justify-center gap-6 md:gap-12 text-white/90 font-bold text-[0.7rem] md:text-sm tracking-[0.2em] uppercase px-4 text-center">
-        <a href="#about" className="hover:scale-110 hover:text-white transition-all no-underline">About</a>
-        <a href="#projects" className="hover:scale-110 hover:text-white transition-all no-underline">Works</a>
-        <a href="#skills" className="hover:scale-110 hover:text-white transition-all no-underline">Lab</a>
-        <a href="#contact" className="hover:scale-110 hover:text-white transition-all no-underline">Contact</a>
+      {/* Main hero content — full-width ruled page */}
+      <div className="flex-1 flex items-center justify-center relative ruled-lines book-spine-shadow py-12 md:py-16">
+        <FallingParticles count={15} />
+
+        {/* Seigaiha subtle background */}
+        <div className="absolute inset-0 seigaiha-bg opacity-10 pointer-events-none" />
+
+        {/* Manga Panel Layout */}
+        <div className="w-full max-w-6xl mx-auto px-6 md:px-12 relative z-10">
+          
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4 md:grid-rows-[220px_200px]">
+            
+            {/* Panel 1: Main Title & Action Lines (Spans 8 cols) */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={mounted ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6 }}
+              className="md:col-span-8 bg-washi-light border-2 border-sumi-light/80 p-8 md:p-10 relative overflow-hidden flex flex-col justify-center shadow-[4px_4px_0px_rgba(59,34,6,0.1)]"
+            >
+              {/* Manga action lines SVG background */}
+              <svg className="absolute inset-0 w-full h-full opacity-5" preserveAspectRatio="none">
+                <defs>
+                  <pattern id="action-lines" patternUnits="userSpaceOnUse" width="100" height="100" patternTransform="rotate(15)">
+                    <line x1="0" y1="0" x2="0" y2="100" stroke="#000" strokeWidth="1" />
+                    <line x1="20" y1="0" x2="20" y2="100" stroke="#000" strokeWidth="0.5" />
+                    <line x1="50" y1="0" x2="50" y2="100" stroke="#000" strokeWidth="2" />
+                    <line x1="80" y1="0" x2="80" y2="100" stroke="#000" strokeWidth="1" />
+                  </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#action-lines)" />
+              </svg>
+
+              <div className="relative z-10">
+                <div className="inline-block bg-sumi-light text-washi px-3 py-1 text-[0.7rem] tracking-[0.2em] uppercase font-bold mb-4" style={{ fontFamily: "var(--font-jetbrains)" }}>
+                  主人公 · Protagonist
+                </div>
+                <h2 className="text-4xl md:text-6xl font-bold text-sumi leading-tight mb-2" style={{ fontFamily: "var(--font-noto-serif-jp)" }}>
+                  B. Anil Kumar
+                </h2>
+                <p className="text-sumi-faded text-sm md:text-base max-w-lg mt-2 leading-relaxed">
+                  Building intelligent systems combining AI, robotics, simulation, and real-time graphics.
+                </p>
+              </div>
+              
+              {/* Decorative manga sound effect text */}
+              <div className="absolute -right-4 -bottom-6 text-[8rem] text-akane opacity-10 font-bold select-none rotate-[-10deg]" style={{ fontFamily: "var(--font-noto-serif-jp)" }}>
+                ゴゴゴ
+              </div>
+            </motion.div>
+
+            {/* Panel 2: Table of Contents (Spans 4 cols, 2 rows) */}
+            <motion.div 
+              initial={{ opacity: 0, x: 20 }}
+              animate={mounted ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="md:col-span-4 md:row-span-2 bg-washi border-2 border-sumi-light/80 p-6 relative flex flex-col shadow-[4px_4px_0px_rgba(59,34,6,0.1)]"
+            >
+              {/* Halftone dots background */}
+              <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "radial-gradient(#000 1px, transparent 1px)", backgroundSize: "8px 8px" }} />
+              
+              <div className="relative z-10 flex-1 flex flex-col">
+                <div className="flex items-center gap-2 mb-6 border-b-2 border-sumi-light/30 pb-3">
+                  <div className="w-3 h-3 bg-akane rounded-full" />
+                  <h3 className="text-sm tracking-[0.2em] font-bold text-sumi-light uppercase" style={{ fontFamily: "var(--font-noto-serif-jp)" }}>
+                    目次 · Index
+                  </h3>
+                </div>
+                
+                <div className="space-y-4 flex-1 flex flex-col justify-center">
+                  {[
+                    { ch: "第1章", label: "About", sub: "自己紹介", href: "#about" },
+                    { ch: "第2章", label: "Skills", sub: "技術スキル", href: "#skills" },
+                    { ch: "第3章", label: "Projects", sub: "プロジェクト", href: "#projects" },
+                    { ch: "第4章", label: "Journey", sub: "経験", href: "#journey" },
+                    { ch: "第5章", label: "Contact", sub: "連絡先", href: "#contact" },
+                  ].map((item, idx) => (
+                    <a
+                      key={idx}
+                      href={item.href}
+                      className="group flex items-center gap-3 text-sumi-light no-underline"
+                    >
+                      <div className="text-akane font-bold text-xs w-[40px] shrink-0 border border-akane text-center py-1 group-hover:bg-akane group-hover:text-washi transition-colors">
+                        {item.ch}
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="font-bold text-[0.85rem] tracking-wide group-hover:translate-x-1 transition-transform">{item.label}</span>
+                        <span className="text-[0.6rem] text-sumi-faded">{item.sub}</span>
+                      </div>
+                      <div className="ml-auto text-[0.7rem] font-mono opacity-40 group-hover:opacity-100 transition-opacity" style={{ fontFamily: "var(--font-jetbrains)" }}>
+                        0{idx + 1}
+                      </div>
+                    </a>
+                  ))}
+                </div>
+
+                <div className="mt-6 text-right" style={{ fontFamily: "var(--font-caveat)", transform: "rotate(-3deg)" }}>
+                  <span className="text-akane text-xl">↓ Start reading!</span>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Panel 3: Abstract Graphic / Element (Spans 4 cols) */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={mounted ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="md:col-span-4 bg-akane text-kitsune-light border-2 border-sumi-light/80 p-6 relative overflow-hidden flex items-center justify-center shadow-[4px_4px_0px_rgba(59,34,6,0.1)]"
+            >
+              <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 10px, #fff 10px, #fff 20px)" }} />
+              
+              <div className="relative z-10 text-center">
+                <div className="text-4xl mb-2">🤖</div>
+                <div className="text-[0.65rem] tracking-[0.2em] font-bold uppercase" style={{ fontFamily: "var(--font-jetbrains)" }}>
+                  Robotics & XR
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Panel 4: Quick Details (Spans 4 cols) */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={mounted ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="md:col-span-4 bg-washi-dark border-2 border-sumi-light/80 p-6 flex flex-col justify-between shadow-[4px_4px_0px_rgba(59,34,6,0.1)]"
+            >
+              <div>
+                <div className="text-[0.6rem] text-sumi-faded uppercase tracking-widest mb-1">Status</div>
+                <div className="text-sm font-bold text-sumi-light">Available for roles</div>
+              </div>
+              <div className="mt-4 pt-4 border-t-2 border-sumi-light/20">
+                <div className="text-[0.6rem] text-sumi-faded uppercase tracking-widest mb-1">Location</div>
+                <div className="text-sm font-bold text-sumi-light">Pondicherry, IN</div>
+              </div>
+            </motion.div>
+
+          </div>
+        </div>
+      </div>
+
+      {/* Page footer */}
+      <div className="bg-washi-dark border-t-2 border-kitsune/30 px-6 md:px-8 py-2 flex justify-between items-center">
+        <span className="text-[0.65rem] text-mist tracking-wider" style={{ fontFamily: "var(--font-noto-serif-jp)" }}>ページ 1 / 5</span>
+        <span className="text-[0.65rem] text-mist tracking-widest opacity-60">PORTFOLIO · 2026</span>
       </div>
     </section>
   );

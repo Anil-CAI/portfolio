@@ -2,106 +2,107 @@
 
 import { motion } from "framer-motion";
 import SectionHeader from "../ui/SectionHeader";
-import SectionBackground from "../ui/SectionBackground";
 
 const timelineData = [
   {
-    year: "2023",
-    title: "Game Engine Foundations",
-    company: "Self-Directed Learning",
-    description: "Started deep-diving into Unreal Engine. Explored software features, visual scripting, and C++ foundations to build interactive virtual environments.",
-    tags: ["Unreal Engine", "Game Dev", "C++"]
+    period: "2023 - Present",
+    role: "Robotics Lab Contributor",
+    org: "KIET Robotics Lab",
+    description: "Contributed to robotics-based development and experimentation. Assisted in developing robotics-related projects and helped create a robotics lab web platform. Supported development of AI assistant-related systems and worked on robotics software integration.",
+    bullets: [
+      "Contributed to robotics-based development and experimentation",
+      "Assisted in developing robotics-related projects",
+      "Helped create a robotics lab web platform",
+      "Supported development of AI assistant-related systems",
+      "Worked on robotics software integration and technical implementation"
+    ]
   },
   {
-    year: "2024 (Early)",
-    title: "B.Tech Computers - Year 2",
-    company: "University",
-    description: "Started B.Tech in Computer Science as a 2nd-year student, focusing on core engineering principles and software architecture.",
-    tags: ["Academic", "CS"]
-  },
-  {
-    year: "2024 (Mid)",
-    title: "Robotics Club - The Spark",
-    company: "Robotics Society",
-    description: "Joined the university robotics club. Spent the 3-1 semester mastering robotics basics and transitioning to advanced robot control systems.",
-    tags: ["Robotics", "Hardware", "Control Systems"]
-  },
-  {
-    year: "2024 (Late)",
-    title: "VR Developer & Teleoperator",
-    company: "Robotics Innovation Lab",
-    description: "Appointed as VR Developer during the 3-2 semester. Tasked with the challenge of teleoperating the Unitree Go2 (robo dog) via VR.",
-    tags: ["VR", "Teleoperation", "Unitree Go2"]
-  },
-  {
-    year: "Present",
-    title: "Meta Hub Deployment",
-    company: "XR Robotics",
-    description: "Developed a Unity app for real-time camera feed and steering control of the robo dog. Successfully published to Meta Developer Hub (Testing Phase). Discovered deep knowledge in WebRTC, Servers, and ROS-TCP.",
-    tags: ["Unity", "WebRTC", "ROS-TCP", "Meta Quest"]
+    period: "Expected 2027",
+    role: "B.Tech in Computer Science Engineering",
+    org: "KIET (JNTUK)",
+    description: "Specializing in Artificial Intelligence. Active participant in technical clubs and research initiatives.",
+    type: "education",
+    bullets: [
+      "CGPA: 7.8",
+      "AI Specialization",
+      "Member of Technical Board"
+    ]
   }
 ];
 
 export default function Journey() {
   return (
-    <SectionBackground backgroundImage="/assets/backgrounds/bg.jpg" overlayOpacity={0.6}>
-      <section id="journey" className="py-24 md:py-32 relative overflow-hidden">
-        <div className="section-container">
-          <SectionHeader 
-            label="04 / Evolution" 
-            title="Professional Journey" 
-            kanji="路" 
-          />
+    <section id="journey" className="textbook-page relative overflow-hidden bg-washi">
+      {/* Chapter tab */}
+      <div className="bg-washi-dark border-b-2 border-kitsune/30 px-6 md:px-8 py-2 flex items-center gap-3">
+        <div className="chapter-stamp text-sm w-[32px] h-[32px]">4</div>
+        <span className="text-[0.7rem] tracking-[0.3em] text-akane uppercase font-bold" style={{ fontFamily: "var(--font-noto-serif-jp)" }}>
+          第四章 · Journey — 経験
+        </span>
+        <span className="flex-1" />
+        <span className="text-[0.65rem] text-mist tracking-wider hidden md:inline" style={{ fontFamily: "var(--font-jetbrains)" }}>pg. 4</span>
+      </div>
 
-          <div className="relative mt-20">
-            {/* Vertical Line */}
-            <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-[1px] bg-border-strong opacity-30 -translate-x-1/2"></div>
+      <div className="ruled-lines margin-line-left book-spine-shadow px-6 md:px-10 lg:px-14 py-8 md:py-10">
+        <SectionHeader label="第四章 · Chapter 4" title="Experience — 経験" kanji="歴" />
 
-            <div className="space-y-24">
-              {timelineData.map((item, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.7, delay: idx * 0.1 }}
-                  className={`relative flex flex-col ${idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} items-start md:items-center gap-8 md:gap-0`}
-                >
-                  {/* Content */}
-                  <div className={`w-full md:w-[42%] ${idx % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
-                    <div className="font-serif-jp text-xs tracking-widest text-sakura-deep mb-2 uppercase font-bold">
-                      {item.year}
-                    </div>
-                    <h3 className="font-mincho text-xl font-bold text-sumi mb-2">{item.title}</h3>
-                    <div className="text-[0.7rem] uppercase tracking-wider text-mist/80 mb-4 font-semibold">{item.company}</div>
-                    <p className="text-sumi/90 text-[0.95rem] md:text-[1rem] leading-relaxed mb-6 max-w-lg mx-auto md:mx-0 font-medium">
-                      {item.description}
-                    </p>
-                    <div className={`flex flex-wrap gap-2 ${idx % 2 === 0 ? 'md:justify-end' : 'md:justify-start'}`}>
-                      {item.tags.map((tag, tIdx) => (
-                        <span key={tIdx} className="px-2.5 py-0.5 bg-washi-dark border border-border text-[0.65rem] text-mist rounded-full uppercase tracking-tighter">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
+        <div className="max-w-3xl mx-auto md:ml-12 relative">
+          {timelineData.map((item, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: idx * 0.15 }}
+              className="mb-8"
+            >
+              {item.type === "education" ? (
+                // Education Card (from reference HTML)
+                <div className="bg-washi-light border border-kitsune-pale rounded p-5 relative overflow-hidden">
+                  {/* Background Kanji */}
+                  <div className="absolute right-4 bottom-2 text-akane opacity-5 text-6xl pointer-events-none font-serif-jp" style={{ fontFamily: "var(--font-noto-serif-jp)" }}>
+                    学
                   </div>
-
-                  {/* Dot */}
-                  <div className="absolute left-0 md:left-1/2 w-3 h-3 rounded-full bg-sakura-deep border-4 border-washi z-10 -translate-x-1/2 scale-110 shadow-[0_0_0_4px_rgba(232,160,176,0.1)]"></div>
-
-                  {/* Spacer */}
-                  <div className="hidden md:block w-[42%]"></div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
+                  
+                  <div className="text-[0.6rem] text-akane tracking-[0.2em] uppercase font-medium mb-1">学歴 · Education</div>
+                  <h3 className="font-serif-jp text-lg font-bold text-sumi-light mb-1">{item.org}</h3>
+                  <div className="text-sm text-mist mb-3 font-medium">{item.role}</div>
+                  
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    <span className="inline-block px-2.5 py-1 border-[1.5px] border-akane rounded text-[0.65rem] text-akane tracking-wider font-medium">Expected: 2027</span>
+                    <span className="inline-block px-2.5 py-1 border-[1.5px] border-akane rounded text-[0.65rem] text-akane tracking-wider font-medium">CGPA: 7.8</span>
+                    <span className="inline-block px-2.5 py-1 border-[1.5px] border-akane rounded text-[0.65rem] text-akane tracking-wider font-medium">AI Specialization</span>
+                  </div>
+                </div>
+              ) : (
+                // Experience Entry (from reference HTML)
+                <div className="bg-washi-light border border-kitsune-pale rounded p-5">
+                  <h3 className="font-serif-jp text-lg font-bold text-sumi-light mb-1">{item.role}</h3>
+                  <div className="text-[0.65rem] text-akane tracking-wider uppercase font-medium mb-3">
+                    {item.org} &nbsp;·&nbsp; {item.period}
+                  </div>
+                  
+                  <ul className="list-none p-0 m-0 space-y-1.5">
+                    {item.bullets.map((bullet, bIdx) => (
+                      <li key={bIdx} className="text-sumi-faded text-[0.82rem] leading-relaxed relative pl-4">
+                        <span className="absolute left-0 top-[3px] text-kitsune text-[0.55rem]">◆</span>
+                        {bullet}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </motion.div>
+          ))}
         </div>
+      </div>
 
-        {/* Background decoration */}
-        <div className="absolute right-0 bottom-0 font-serif-jp text-[12rem] text-sakura opacity-[0.03] pointer-events-none select-none translate-x-1/4 translate-y-1/4">
-          道
-        </div>
-      </section>
-    </SectionBackground>
+      {/* Page footer */}
+      <div className="bg-washi-dark border-t-2 border-kitsune/40 px-6 md:px-8 py-2 flex justify-between items-center">
+        <span className="text-[0.65rem] text-mist tracking-wider" style={{ fontFamily: "var(--font-noto-serif-jp)" }}>ページ 5 / 5</span>
+        <span className="text-[0.65rem] text-mist tracking-widest opacity-50">経験 · ACADEMIC TIMELINE</span>
+      </div>
+    </section>
   );
 }
