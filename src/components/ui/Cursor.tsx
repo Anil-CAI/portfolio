@@ -6,12 +6,23 @@ import { motion } from "framer-motion";
 export default function Cursor() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   useEffect(() => {
+    // Detect if device is a touch device (mobile/tablet) to disable custom cursor logic
+    // This prevents massive performance lag from constant state updates on mobile scroll
+    if (window.matchMedia("(hover: none) and (pointer: coarse)").matches) {
+      setIsTouchDevice(true);
+      return;
+    }
+
     const mouseMove = (e: MouseEvent) => {
-      setMousePosition({
-        x: e.clientX,
-        y: e.clientY
+      // Use requestAnimationFrame for smoother performance
+      requestAnimationFrame(() => {
+        setMousePosition({
+          x: e.clientX,
+          y: e.clientY
+        });
       });
     };
 
@@ -30,14 +41,17 @@ export default function Cursor() {
       }
     };
 
-    window.addEventListener("mousemove", mouseMove);
-    window.addEventListener("mouseover", handleHover);
+    window.addEventListener("mousemove", mouseMove, { passive: true });
+    window.addEventListener("mouseover", handleHover, { passive: true });
 
     return () => {
       window.removeEventListener("mousemove", mouseMove);
       window.removeEventListener("mouseover", handleHover);
     };
   }, []);
+
+  // Return nothing on mobile devices to save performance
+  if (isTouchDevice) return null;
 
   return (
     <>
