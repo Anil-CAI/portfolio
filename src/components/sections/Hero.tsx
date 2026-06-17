@@ -43,7 +43,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={mounted ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6 }}
-              className="md:col-span-8 bg-washi-light border-2 border-sumi-light/80 p-8 md:p-10 relative overflow-hidden flex flex-col justify-center shadow-[4px_4px_0px_rgba(59,34,6,0.1)]"
+              className="md:col-span-8 min-h-[260px] md:min-h-0 bg-washi-light border-2 border-sumi-light/80 p-8 md:p-10 relative overflow-hidden flex flex-col justify-center shadow-[4px_4px_0px_rgba(59,34,6,0.1)]"
             >
               {/* Manga action lines SVG background */}
               <svg className="absolute inset-0 w-full h-full opacity-5" preserveAspectRatio="none">
@@ -81,7 +81,7 @@ export default function Hero() {
               initial={{ opacity: 0, x: 20 }}
               animate={mounted ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="md:col-span-4 md:row-span-2 bg-washi border-2 border-sumi-light/80 p-6 relative flex flex-col shadow-[4px_4px_0px_rgba(59,34,6,0.1)]"
+              className="md:col-span-4 md:row-span-2 min-h-[320px] md:min-h-0 bg-washi border-2 border-sumi-light/80 p-6 relative flex flex-col shadow-[4px_4px_0px_rgba(59,34,6,0.1)]"
             >
               {/* Halftone dots background */}
               <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "radial-gradient(#000 1px, transparent 1px)", backgroundSize: "8px 8px" }} />
@@ -132,7 +132,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={mounted ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="md:col-span-4 bg-akane text-kitsune-light border-2 border-sumi-light/80 p-6 relative overflow-hidden flex items-center justify-center shadow-[4px_4px_0px_rgba(59,34,6,0.1)]"
+              className="md:col-span-4 min-h-[140px] md:min-h-0 bg-akane text-kitsune-light border-2 border-sumi-light/80 p-6 relative overflow-hidden flex items-center justify-center shadow-[4px_4px_0px_rgba(59,34,6,0.1)]"
             >
               <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 10px, #fff 10px, #fff 20px)" }} />
               
