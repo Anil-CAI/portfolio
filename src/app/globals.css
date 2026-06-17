@@ -1,75 +1,320 @@
 @import "tailwindcss";
 
 @theme {
-  --color-washi: #f9f5ef;
-  --color-washi-dark: #f0e9df;
+  /* Japanese Textbook Color Palette */
+  --color-washi: #f5f0e8;
+  --color-washi-dark: #e8dfc8;
+  --color-washi-light: #fff9ee;
+  --color-akane: #8b3a3a;
+  --color-akane-deep: #6d2b2b;
+  --color-akane-bright: #c9313a;
+  --color-kitsune: #c9a86c;
+  --color-kitsune-pale: rgba(212, 184, 122, 0.4);
+  --color-kitsune-light: #f5e6c8;
+  --color-sumi: #1a1a1a;
+  --color-sumi-light: #3b2206;
+  --color-sumi-faded: #4a3218;
+  --color-mist: #8b5a2b;
   --color-sakura: #f2c4ce;
   --color-sakura-deep: #e8a0b0;
-  --color-sakura-pale: #faf0f2;
-  --color-matcha: #7a9e7e;
-  --color-matcha-pale: #d6e8d7;
   --color-indigo: #3d4f6e;
-  --color-indigo-light: #6278a0;
-  --color-gold: #c9a84c;
-  --color-gold-pale: #f5e6c0;
-  --color-sumi: #1a1a2e;
-  --color-mist: #8a8fa8;
-  --color-border: rgba(180,160,140,0.3);
-  --color-border-strong: rgba(180,160,140,0.55);
+  --color-matcha: #7a9e7e;
+  --color-line-blue: #b8cce4;
+  --color-line-red: #e8a0a0;
+  --color-highlight-yellow: #fff3b0;
+  --color-highlight-pink: #ffd6e0;
+  --color-border: rgba(180, 160, 140, 0.15);
+  --color-border-strong: rgba(201, 168, 108, 0.3);
 
-  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-noto-sans-jp), ui-sans-serif, system-ui, sans-serif;
   --font-serif-jp: var(--font-noto-serif-jp), serif;
-  --font-mincho: var(--font-shippori-mincho), serif;
+  --font-handwritten: var(--font-caveat), cursive;
+  --font-mono-text: var(--font-jetbrains), 'Courier New', monospace;
 }
 
 @layer base {
   :root {
-    --background: #f9f5ef;
-    --foreground: #1a1a2e;
+    --background: #f5f0e8;
+    --foreground: #1a1a1a;
   }
 
   body {
-    @apply bg-washi text-sumi font-sans;
+    @apply bg-washi text-sumi antialiased;
     overflow-x: hidden;
-    /* Custom cursor logic should be in a component, but we'll set the default here */
   }
 
   h1, h2, h3, h4 {
-    @apply font-mincho font-medium tracking-tight;
+    font-family: var(--font-noto-serif-jp), serif;
+    @apply font-bold tracking-tight;
+  }
+
+  ::selection {
+    background: rgba(201, 168, 108, 0.3);
+    color: #1a1a1a;
   }
 }
 
 @layer components {
   .section-container {
-    @apply max-w-7xl mx-auto px-6 py-20;
+    @apply w-full px-6 md:px-10 lg:px-14 py-0;
+    max-width: 100%;
   }
 
+  /* Ruled notebook lines */
+  .ruled-lines {
+    background-image: repeating-linear-gradient(
+      transparent, transparent 27px,
+      rgba(100, 80, 40, 0.1) 27px, rgba(100, 80, 40, 0.1) 28px
+    );
+  }
+
+  /* Graph paper pattern */
+  .graph-paper {
+    background-image:
+      linear-gradient(rgba(100, 140, 200, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(100, 140, 200, 0.08) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  /* Seigaiha wave pattern */
   .seigaiha-bg {
-    background-image: url("data:image/svg+xml,%3Csvg width='40' height='24' viewBox='0 0 40 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 24 Q10 0 20 24 Q30 0 40 24' fill='none' stroke='%23e8d8c8' stroke-width='0.7'/%3E%3Cpath d='M-20 24 Q-10 0 0 24' fill='none' stroke='%23e8d8c8' stroke-width='0.7'/%3E%3Cpath d='M40 24 Q50 0 60 24' fill='none' stroke='%23e8d8c8' stroke-width='0.7'/%3E%3Cpath d='M0 0 Q10 24 20 0 Q30 24 40 0' fill='none' stroke='%23e8d8c8' stroke-width='0.7'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg width='40' height='24' viewBox='0 0 40 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 24 Q10 0 20 24 Q30 0 40 24' fill='none' stroke='%23d4b87a' stroke-width='0.5'/%3E%3Cpath d='M-20 24 Q-10 0 0 24' fill='none' stroke='%23d4b87a' stroke-width='0.5'/%3E%3Cpath d='M40 24 Q50 0 60 24' fill='none' stroke='%23d4b87a' stroke-width='0.5'/%3E%3C/svg%3E");
+  }
+
+  /* Dashed rule line (Japanese book separator) */
+  .page-rule {
+    height: 2px;
+    background: repeating-linear-gradient(90deg, #c9a86c 0px, #c9a86c 8px, transparent 8px, transparent 14px);
+    opacity: 0.6;
   }
 
   .btn-primary {
-    @apply px-7 py-3 bg-sumi text-washi rounded-sm text-sm tracking-widest uppercase transition-all hover:bg-indigo hover:-translate-y-0.5;
+    @apply px-7 py-3 text-sm tracking-widest uppercase transition-all;
+    background: #8b3a3a;
+    color: #f5e6c8;
+    border: 2px solid #8b3a3a;
+    border-radius: 0;
+  }
+  .btn-primary:hover {
+    background: #6d2b2b;
+    border-color: #6d2b2b;
+    transform: translateY(-1px);
   }
 
   .btn-ghost {
-    @apply px-6 py-3 bg-transparent text-sumi border border-border-strong rounded-sm text-sm tracking-widest uppercase transition-all hover:bg-washi-dark;
+    @apply px-6 py-3 bg-transparent text-sm tracking-widest uppercase transition-all;
+    color: #8b3a3a;
+    border: 1.5px solid #c9a86c;
+    border-radius: 0;
+  }
+  .btn-ghost:hover {
+    background: #e8dfc8;
   }
 
   .badge {
-    @apply px-3.5 py-1.5 border border-border-strong rounded-sm text-[0.75rem] tracking-widest text-indigo transition-all hover:bg-sakura-pale hover:border-sakura-deep hover:text-sumi;
+    @apply px-3 py-1 text-[0.72rem] tracking-wider transition-all;
+    color: #8b3a3a;
+    border: 1px solid #d4b87a;
+    border-left: 3px solid #8b3a3a;
+    border-radius: 3px;
+    background: #fff9ee;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .badge:hover {
+    background: #f5e6c8;
   }
 
-  .badge-filled {
-    @apply bg-sakura-pale border-sakura-deep text-sumi;
+  /* Sticky note */
+  .sticky-note {
+    background: #fff3b0;
+    padding: 14px 18px;
+    transform: rotate(-1deg);
+    box-shadow: 2px 3px 8px rgba(0,0,0,0.1);
+    position: relative;
+    font-family: var(--font-handwritten);
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: #1a1a1a;
+  }
+  .sticky-note::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 40%;
+    width: 50px;
+    height: 16px;
+    background: rgba(200,200,180,0.5);
+    transform: translateY(-60%);
+    border-radius: 2px;
+  }
+
+  /* Textbook table */
+  .textbook-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+  .textbook-table th {
+    @apply text-left;
+    background: #e8dfc8;
+    padding: 10px 16px;
+    border: 1.5px solid #c9a86c;
+    font-family: var(--font-noto-serif-jp), serif;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    font-weight: 700;
+    color: #3b2206;
+  }
+  .textbook-table td {
+    padding: 10px 16px;
+    border: 1px solid #d4b87a;
+    vertical-align: top;
+    color: #3b2206;
+  }
+  .textbook-table tr:nth-child(even) {
+    background: #fff9ee;
+  }
+
+  /* Chapter stamp (red circle with number) */
+  .chapter-stamp {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 2.5px solid #8b3a3a;
+    border-radius: 50%;
+    font-family: var(--font-noto-serif-jp), serif;
+    font-weight: 900;
+    font-size: 1.1rem;
+    color: #8b3a3a;
+    transform: rotate(-3deg);
+    flex-shrink: 0;
+  }
+
+  /* Hanko seal */
+  .hanko-seal {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2.5px solid #f5e6c8;
+    background: #c9313a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-family: var(--font-noto-serif-jp), serif;
+    font-size: 10px;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  /* Link pills */
+  .link-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 14px;
+    background: #8b3a3a;
+    color: #f5e6c8;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 500;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    transition: background 0.15s;
+  }
+  .link-pill:hover {
+    background: #6d2b2b;
+  }
+
+  /* Page section with page-turn scroll snap */
+  .textbook-page {
+    scroll-snap-align: start;
+    min-height: auto;
+    position: relative;
+    border-bottom: 2px solid #c9a86c;
+    overflow: hidden;
+  }
+
+  /* Page curl corner */
+  .textbook-page::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(135deg, transparent 50%, #e8dfc8 50%);
+    box-shadow: -1px -1px 3px rgba(0,0,0,0.05);
+    pointer-events: none;
+  }
+
+  /* Margin line */
+  .margin-line-left {
+    position: relative;
+  }
+  .margin-line-left::before {
+    content: '';
+    position: absolute;
+    left: 48px;
+    top: 0;
+    bottom: 0;
+    width: 1.5px;
+    background: #e8a0a0;
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: 1;
   }
 }
 
-/* Custom Cursor Styles */
+/* Custom Cursor */
 .cursor-dot {
-  @apply fixed top-0 left-0 w-3 h-3 bg-sakura-deep rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 mix-blend-multiply transition-transform duration-100;
+  @apply fixed top-0 left-0 w-2.5 h-2.5 rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 transition-transform duration-100;
+  background: #8b3a3a;
+  mix-blend-mode: multiply;
 }
 
 .cursor-ring {
-  @apply fixed top-0 left-0 w-9 h-9 border border-sakura-deep rounded-full pointer-events-none z-[9998] -translate-x-1/2 -translate-y-1/2 transition-transform duration-200;
+  @apply fixed top-0 left-0 w-8 h-8 rounded-full pointer-events-none z-[9998] -translate-x-1/2 -translate-y-1/2 transition-transform duration-200;
+  border: 1px solid #c9a86c;
+}
+
+/* Scroll snap for page-turn feel */
+.textbook-scroll {
+  scroll-snap-type: y proximity;
+}
+
+/* Page turn animation */
+@keyframes pageTurnIn {
+  from {
+    opacity: 0;
+    transform: perspective(1200px) rotateY(-8deg) translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(1200px) rotateY(0deg) translateX(0);
+  }
+}
+
+.page-turn-animate {
+  animation: pageTurnIn 0.6s ease-out;
+}
+
+/* Sakura petal */
+@keyframes petalFall {
+  0% { opacity: 0; }
+  10% { opacity: 0.8; }
+  90% { opacity: 0.8; }
+  100% { opacity: 0; }
+}
+
+/* Book spine shadow on left */
+.book-spine-shadow {
+  box-shadow: inset 6px 0 10px -4px rgba(0,0,0,0.06);
 }
