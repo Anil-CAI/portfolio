@@ -9,27 +9,27 @@ interface ProjectProps {
   description: string;
   type: string;
   year: string;
-  bgColor: string; // e.g., '#e8f5e9'
-  pattern: "grid" | "dots" | "lines" | "mesh";
-  illustration: string; // Emoji or large icon text
+  illustration: string;
   github?: string;
   demo?: string;
   videoUrl?: string;
-  titleHref?: string; // New prop for title redirection
+  titleHref?: string;
+  tech?: string;
+  index: number;
 }
 
-export default function ProjectCard({ 
-  title, 
-  description, 
-  type, 
-  year, 
-  bgColor, 
-  pattern, 
-  illustration, 
-  github, 
-  demo, 
+export default function ProjectCard({
+  title,
+  description,
+  type,
+  year,
+  illustration,
+  github,
+  demo,
   videoUrl,
-  titleHref
+  titleHref,
+  tech,
+  index,
 }: ProjectProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -45,108 +45,114 @@ export default function ProjectCard({
     }
   };
 
-  const getPatternClass = (p: string) => {
-    switch (p) {
-      case "grid": return "bg-[radial-gradient(#00000010_1px,transparent_1px)] [background-size:20px_20px]";
-      case "dots": return "bg-[radial-gradient(#00000015_2px,transparent_2px)] [background-size:15px_15px]";
-      case "lines": return "bg-[repeating-linear-gradient(45deg,#00000005_0px,#00000005_1px,transparent_1px,transparent_10px)]";
-      case "mesh": return "bg-[linear-gradient(to_right,#00000008_1px,transparent_1px),linear-gradient(to_bottom,#00000008_1px,transparent_1px)] [background-size:10px_10px]";
-      default: return "";
-    }
-  };
-
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 15 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="bg-white border border-border rounded-xl overflow-hidden group transition-all duration-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] hover:-translate-y-2"
+      transition={{ duration: 0.4, delay: index * 0.1 }}
+      className="bg-washi-light border border-kitsune-pale relative group transition-all duration-300 hover:-translate-y-1 hover:shadow-md flex flex-col h-full overflow-hidden"
     >
-      {/* Thumbnail Area */}
-      <div 
-        className="relative h-[220px] flex items-center justify-center overflow-hidden transition-colors duration-500"
-        style={{ backgroundColor: bgColor }}
+      {/* Red vertical border line (like reference HTML) */}
+      <div className="absolute top-0 left-0 bottom-0 w-[4px] bg-akane z-10" />
+
+      {/* Case Study / Figure Number */}
+      <div
+        className="absolute top-3 right-3 z-20 text-[0.6rem] text-akane tracking-wider"
+        style={{ fontFamily: "var(--font-jetbrains)" }}
       >
-        {/* Pattern overlay */}
-        <div className={`absolute inset-0 opacity-100 ${getPatternClass(pattern)}`}></div>
-        
+        Fig. 3.{index + 1}
+      </div>
+
+      {/* Thumbnail Area */}
+      <div className="relative h-[180px] flex items-center justify-center overflow-hidden bg-washi-dark border-b border-kitsune-pale">
+        {/* Graph paper pattern in thumbnail */}
+        <div className="absolute inset-0 graph-paper opacity-40" />
+
         {videoUrl ? (
           <div className="absolute inset-0 w-full h-full group/video">
-            <video 
+            <video
               ref={videoRef}
-              src={videoUrl} 
+              src={videoUrl}
               className="w-full h-full object-cover opacity-0 group-hover/video:opacity-100 transition-opacity duration-500"
               loop
               muted
               playsInline
             />
-            
-            {/* Visual fallback when not playing/hovering */}
+            {/* Emoji fallback */}
             <div className="absolute inset-0 flex items-center justify-center group-hover/video:opacity-0 transition-opacity duration-500">
-               <span className="text-7xl drop-shadow-sm select-none transform group-hover:scale-110 transition-transform duration-500">
+              <span className="text-6xl select-none group-hover:scale-110 transition-transform duration-500 drop-shadow-sm">
                 {illustration}
               </span>
             </div>
-
             {!isPlaying && (
               <div className="absolute inset-0 flex items-center justify-center bg-black/5 opacity-0 group-hover/video:opacity-100 transition-opacity">
-                 <button 
+                <button
                   onClick={toggleVideo}
-                  className="w-14 h-14 bg-white/90 rounded-full flex items-center justify-center text-sumi shadow-xl transition-transform hover:scale-110"
+                  className="w-12 h-12 bg-washi/90 border-2 border-akane flex items-center justify-center text-akane shadow-lg transition-transform hover:scale-110 rounded-full"
                 >
-                  <Play size={24} fill="currentColor" className="ml-1" />
+                  <Play size={20} fill="currentColor" className="ml-0.5" />
                 </button>
               </div>
             )}
           </div>
         ) : (
-          <div className="relative z-10 text-8xl drop-shadow-sm select-none transform group-hover:scale-110 transition-transform duration-500">
+          <div className="relative z-10 text-6xl select-none group-hover:scale-110 transition-transform duration-500 drop-shadow-sm">
             {illustration}
           </div>
         )}
-
-        {/* Floating Tag */}
-        <div className="absolute top-4 left-4 px-3 py-1 bg-white/80 backdrop-blur-md rounded-full border border-black/5 text-[0.65rem] font-bold tracking-widest uppercase text-indigo-light opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          {type}
-        </div>
       </div>
 
       {/* Content Area */}
-      <div className="p-7">
-        <div className="text-[0.7rem] tracking-[0.2em] uppercase font-bold text-mist/60 mb-2">
-          {type.split('•')[0]} — {year}
-        </div>
-        
-        {titleHref ? (
-          <a 
-            href={titleHref} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="font-mincho text-[1.25rem] font-bold text-sumi mb-3 leading-tight block no-underline transition-colors hover:text-sakura-deep hover:underline cursor-pointer relative z-10"
-          >
-            {title}
-          </a>
-        ) : (
-          <h3 className="font-mincho text-[1.25rem] font-bold text-sumi mb-3 leading-tight block">
-            {title}
-          </h3>
-        )}
-
-        <p className="text-mist text-[0.85rem] leading-relaxed mb-6 h-[4.5em] overflow-hidden line-clamp-3">
-          {description}
-        </p>
-        
-        <div className="flex items-center justify-between pt-5 border-t border-gray-50">
-          <div className="text-[0.75rem] font-bold text-mist tracking-widest">{year}</div>
-          <div className="flex gap-5">
-            {github && (
-              <a href={github} target="_blank" rel="noopener noreferrer" className="text-indigo-light hover:text-sakura-deep transition-colors flex items-center gap-1.5 no-underline font-bold">
-                <Code size={14} /> <span className="text-[0.7rem] tracking-widest uppercase">Source</span>
-              </a>
-            )}
-            <a href={demo || "#"} target="_blank" rel="noopener noreferrer" className="text-indigo-light hover:text-sakura-deep transition-colors flex items-center gap-1.5 no-underline font-bold">
-              <span className="text-[0.7rem] tracking-widest uppercase">View</span> <ExternalLink size={14} />
+      <div className="p-5 pl-6 flex-1 flex flex-col relative">
+        <div className="relative z-10 flex-1 flex flex-col">
+          {/* Title */}
+          {titleHref ? (
+            <a
+              href={titleHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[1.1rem] font-bold text-sumi-light mb-1.5 leading-tight block no-underline transition-colors hover:text-akane relative z-10"
+              style={{ fontFamily: "var(--font-noto-serif-jp)" }}
+            >
+              {title}
             </a>
+          ) : (
+            <h3 className="text-[1.1rem] font-bold text-sumi-light mb-1.5 leading-tight" style={{ fontFamily: "var(--font-noto-serif-jp)" }}>
+              {title}
+            </h3>
+          )}
+
+          {/* Tech stack */}
+          {tech && (
+            <div className="text-[0.65rem] text-akane tracking-wider mb-2 font-medium">
+              {tech}
+            </div>
+          )}
+
+          {/* Description */}
+          <ul className="list-none p-0 m-0 mb-4 flex-1">
+            <li className="text-sumi-faded text-[0.82rem] leading-relaxed relative pl-4">
+               <span className="absolute left-0 top-[2px] text-kitsune text-[0.6rem]">→</span>
+               {description}
+            </li>
+          </ul>
+
+          {/* Links and Year */}
+          <div className="flex items-center justify-between pt-3 border-t border-kitsune/30 mt-auto">
+            <div className="text-[0.65rem] font-bold text-mist tracking-widest uppercase" style={{ fontFamily: "var(--font-jetbrains)" }}>
+               {type.split("•")[0].trim()} · {year}
+            </div>
+            <div className="flex gap-3">
+              {github && (
+                <a href={github} target="_blank" rel="noopener noreferrer" className="text-akane hover:text-akane-deep transition-colors flex items-center gap-1.5 no-underline text-xs font-semibold">
+                  <Code size={13} /> <span className="text-[0.65rem] tracking-wider uppercase">Source</span>
+                </a>
+              )}
+              <a href={demo || "#"} target="_blank" rel="noopener noreferrer" className="text-akane hover:text-akane-deep transition-colors flex items-center gap-1.5 no-underline text-xs font-semibold">
+                <span className="text-[0.65rem] tracking-wider uppercase">View</span> <ExternalLink size={13} />
+              </a>
+            </div>
           </div>
         </div>
       </div>

@@ -18,9 +18,9 @@ export default function Cursor() {
     const handleHover = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       if (
-        target.tagName === "A" || 
-        target.tagName === "BUTTON" || 
-        target.closest("a") || 
+        target.tagName === "A" ||
+        target.tagName === "BUTTON" ||
+        target.closest("a") ||
         target.closest("button") ||
         target.classList.contains("clickable")
       ) {
@@ -47,7 +47,7 @@ export default function Cursor() {
           x: mousePosition.x,
           y: mousePosition.y,
           scale: isHovering ? 2.5 : 1,
-          opacity: isHovering ? 0.6 : 1,
+          opacity: isHovering ? 0.5 : 1,
         }}
         transition={{ type: "spring", stiffness: 500, damping: 28, mass: 0.5 }}
       />
