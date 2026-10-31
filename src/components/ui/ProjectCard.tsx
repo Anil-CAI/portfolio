@@ -88,7 +88,9 @@ export default function ProjectCard({
             {!isPlaying && (
               <div className="absolute inset-0 flex items-center justify-center bg-black/5 opacity-0 group-hover/video:opacity-100 transition-opacity">
                 <button
+                  type="button"
                   onClick={toggleVideo}
+                  aria-label={isPlaying ? `Pause ${title} demo` : `Play ${title} demo`}
                   className="w-12 h-12 bg-washi/90 border-2 border-akane flex items-center justify-center text-akane shadow-lg transition-transform hover:scale-110 rounded-full"
                 >
                   <Play size={20} fill="currentColor" className="ml-0.5" />
@@ -149,9 +151,11 @@ export default function ProjectCard({
                   <Code size={13} /> <span className="text-[0.65rem] tracking-wider uppercase">Source</span>
                 </a>
               )}
-              <a href={demo || "#"} target="_blank" rel="noopener noreferrer" className="text-akane hover:text-akane-deep transition-colors flex items-center gap-1.5 no-underline text-xs font-semibold">
-                <span className="text-[0.65rem] tracking-wider uppercase">View</span> <ExternalLink size={13} />
-              </a>
+              {demo && (
+                <a href={demo} target="_blank" rel="noopener noreferrer" className="text-akane hover:text-akane-deep transition-colors flex items-center gap-1.5 no-underline text-xs font-semibold">
+                  <span className="text-[0.65rem] tracking-wider uppercase">View</span> <ExternalLink size={13} />
+                </a>
+              )}
             </div>
           </div>
         </div>
