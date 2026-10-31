@@ -5,12 +5,12 @@ import SectionHeader from "../ui/SectionHeader";
 import { Code2, Gamepad2, Cpu, Globe, BrainCircuit, Hammer } from "lucide-react";
 
 const skillCategories = [
-  { title: "Robotics & Hardware", icon: <Cpu size={20} />, desc: "Building physical intelligence and autonomous systems.", tags: ["ROS2", "Gazebo", "Simulation"], kanji: "器" },
-  { title: "Game Engine & 3D", icon: <Gamepad2 size={20} />, desc: "Creating immersive worlds and real-time visualizations.", tags: ["Unreal Engine 5", "C++", "Blender", "3D Modeling"], kanji: "画" },
-  { title: "AI & Intelligence", icon: <BrainCircuit size={20} />, desc: "Implementing machine learning and computer vision.", tags: ["Computer Vision", "Automation", "Prompt Eng", "Python"], kanji: "智" },
-  { title: "Software Engineering", icon: <Code2 size={20} />, desc: "Architecting clean, scalable, and performant codebases.", tags: ["C++", "Python", "System Design", "Git"], kanji: "工" },
-  { title: "Web Technologies", icon: <Globe size={20} />, desc: "Developing modern, responsive, and interactive interfaces.", tags: ["Next.js", "React", "FastAPI", "Tailwind", "REST APIs"], kanji: "網" },
-  { title: "Tools & Workflow", icon: <Hammer size={20} />, desc: "Optimizing development with modern industry tools.", tags: ["Docker", "Linux", "VS Code", "Figma"], kanji: "具" },
+  { title: "Robotics & Teleoperation", icon: <Cpu size={20} />, desc: "Teleoperating quadruped and humanoid robots with low-latency video and control.", tags: ["ROS 2", "Unitree SDK", "Unitree G1 / Go2", "Teleoperation", "Telepresence"], kanji: "器" },
+  { title: "XR & Game Engines", icon: <Gamepad2 size={20} />, desc: "Building immersive VR and spatial 3D experiences for Meta Quest 3.", tags: ["Unity", "C#", "Meta Quest 3", "Unreal Engine 5", "Blender"], kanji: "画" },
+  { title: "AI & Embodied Learning", icon: <BrainCircuit size={20} />, desc: "Collecting robot demonstration data and training models on it.", tags: ["VLA Models", "Learning from Demonstration", "AI Assistants", "Python"], kanji: "智" },
+  { title: "Real-Time Communication", icon: <Code2 size={20} />, desc: "Streaming video and control signals between headsets, robots and servers.", tags: ["WebRTC", "Low-Latency Video", "Client-Server", "Wi-Fi Networking"], kanji: "工" },
+  { title: "Web Development", icon: <Globe size={20} />, desc: "Building responsive websites and browser-based XR.", tags: ["Next.js", "React", "Tailwind CSS", "Three.js", "Web-based XR"], kanji: "網" },
+  { title: "Tools & Workflow", icon: <Hammer size={20} />, desc: "Day-to-day tools for building and shipping.", tags: ["Git", "Linux", "Docker", "VS Code", "Figma"], kanji: "具" },
 ];
 
 export default function Skills() {

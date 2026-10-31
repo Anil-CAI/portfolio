@@ -5,28 +5,24 @@ import SectionHeader from "../ui/SectionHeader";
 
 const timelineData = [
   {
-    period: "2023 - Present",
+    period: "Aug 2024 – Present",
     role: "Robotics Lab Contributor",
     org: "KIET Robotics Lab",
-    description: "Contributed to robotics-based development and experimentation. Assisted in developing robotics-related projects and helped create a robotics lab web platform. Supported development of AI assistant-related systems and worked on robotics software integration.",
     bullets: [
-      "Contributed to robotics-based development and experimentation",
-      "Assisted in developing robotics-related projects",
-      "Helped create a robotics lab web platform",
-      "Supported development of AI assistant-related systems",
-      "Worked on robotics software integration and technical implementation"
+      "Built and maintained the robotics lab's web platform",
+      "Developed robotics software in Python for lab experiments",
+      "Developed an AI assistant for lab members",
+      "Ran robotics experiments and testing as part of a team, from hardware setup through software implementation"
     ]
   },
   {
     period: "Expected 2027",
-    role: "B.Tech in Computer Science Engineering",
-    org: "KIET (JNTUK)",
-    description: "Specializing in Artificial Intelligence. Active participant in technical clubs and research initiatives.",
+    role: "B.Tech, Computer Science & Engineering (AI)",
+    org: "KIET (affiliated to JNTUK)",
     type: "education",
     bullets: [
-      "CGPA: 7.8",
-      "AI Specialization",
-      "Member of Technical Board"
+      "CGPA: 7.8 / 10",
+      "Artificial Intelligence specialization"
     ]
   }
 ];
